@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=7"/>
+    <title>WMS</title>
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-myProject.js"></script>
+    <script type="text/javascript" src="/js/jquery-myAjaxForm.js"></script>
+    <script type="text/javascript" src="/js/init.js"></script>
+    <link href="/css/ui-lightness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="/css/global.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/public/index.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/public/layout.css"/>
+</head>
+
+<script language="javascript" src="/lodop/LodopFuncs.js"></script>
+<script type="text/javascript" src="/lodop/lodop_print.js"></script>
+<style type="text/css">
+    #validateTips{
+        font-weight:bold;
+        margin-left:10px;
+        background-color:#FFFFCC;
+        line-height:24px;
+        padding:3px 0;
+    }
+</style>
+<object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0>
+    <embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="install_lodop32.exe"></embed>
+</object>
+<div id="module-container">
+    <div id="search-module">
+        <form id="printForm" name="printForm" class="submitReturnFalse">
+            <div class="search-module-condition">
+ 				&nbsp;打印类型：
+                <select name="print_type" id="print_type" class="selectCss2">
+                    <option value="">请选择</option>
+                	<{foreach from=$kvType key=key item=val}>
+                    <option value="<{$key}>" selected="true"><{$val}></option>
+                    <{/foreach}>
+                </select>                
+                &nbsp;&nbsp;单号：
+                <input type="text" name="print_code" id="print_code" class="input_text" value="<{$printCode}>"/>
+                <span style="display:none;" id="orderContent">
+                    &nbsp;&nbsp;订单号：<input type="text" name="order_code" class="input_text" value="<{$printCode}>">
+                </span>
+                <input type="button" onclick="reprint();" value="打 印" class="baseBtn"/>
+                <span class="validateTips" id="validateTips"></span>
+            </div>
+				<div class="opration_area_lft">
+                    <input type="button" value="设置打印机"
+                           class="baseBtn " onclick="printerSetup();"/>
+   </div>
+    	</form>
+    </div>
+</div>
+<form id="openForm" action="" method="GET" target="_target"></form>
+
+<script type="text/javascript">
+function reprint() {
+    var print_type = $('#print_type').val();
+    if(print_type=='peihuo'){
+        $('#orderContent').show();
+        /*if( $('[name=order_code]').val()==''){
+            if($('#print_code').val()!=''){
+                $('[name=order_code]').focus();
+            }
+            return;
+        }*/
+    }else{
+        $('#orderContent').hide();
+        $('[name=order_code]').val('');
+    }
+	$('#validateTips').text('').hide();
+	var uri = '/warehouse/reprint-receipts-log/reprint';
+	$.post(uri, $('#printForm').serialize(), function(data){
+		if(data.state===0) $('#validateTips').text(data.message).show();
+		else {
+            $("#print_code").val('');
+            $("[name='order_code']").val();
+            if(data.printType=='ship_order'){
+                getOrdersReprint(data.printCode);
+                $("#print_code").focus().select();
+                return false;
+            }
+            else if (data.printType=='peihuo') {
+              //printPeihuoXiajia(data.link);
+              window.open(data.link, '_blank', 'fullscreen=yes,scrollbars=yes,toolbar=yes');
+              return false;
+            }
+			window.open(data.link, '_blank', 'fullscreen=yes,scrollbars=yes');
+			//$('#openForm').attr('action', data.link)[0].submit();			
+		}
+	},'json');
+}
+ $(function(){
+     $("#print_code").focus();
+     $("#print_code").keyup(function (e) {
+         var key = e.which;
+         if (key == 13 && $("#print_code").val()!='') {
+             reprint();
+         }
+     });
+     $('#print_type').bind('change',function(){
+         if($('#print_type').val()=='peihuo'){
+             $('#orderContent').show();
+             if( $('[name=order_code]').val()==''){
+                 //$('[name=order_code]').focus();
+                 return;
+             }
+         }else{
+             $('#orderContent').hide();
+             $('[name=order_code]').val('');
+         }
+     });
+ });
+</script>
+
+<script language="javascript" src="/lodop/LodopFuncs.js"></script>
+<script type="text/javascript" src="/lodop/lodop_print.js"></script>
+<script type="text/javascript" src="/js/jquery-cookie.js"></script>
+<script type="text/javascript" src="/js/jquery.form.js"></script>
+<script type="text/javascript" src="/js/jquery.pagination.js"></script>
+<script type="text/javascript" src="/js/mod.js"></script>
+<script type="text/javascript" src="/js/searchFilter.js"></script>
+<script type="text/javascript" src="/js/jquery.myLoading.js"></script>
+</body>
+</html>

@@ -18,7 +18,7 @@ $php_reader = new PHPExcel_Reader_Excel2007();
   
 //$objexcel->setActiveSheetIndex(0)->setCellValue('A1', '中文');  
   
-$excelFileUrl = 'print/11.xlsx';//xlsx文件路径  
+$excelFileUrl = 'print/ok.xlsx';//xlsx文件路径  
 //$xlsFileUrl = '01simple.xls';//97-03版excel文件路径  
   
 echo '<pre>';  
@@ -57,11 +57,11 @@ if(file_exists($excelFileUrl))
     }  
     //var_dump($excelFileArray);exit;
     
-    @$conn= mysql_connect('localhost','root','root') or die("连接错");
+    @$conn= mysql_connect('localhost','root','ccmiu') or die("连接错");
     mysql_query("set names utf8");//设置编码输出
     mysql_select_db('print'); //选择数据库
     
-    //print_r(count($excelFileArray));exit;
+   // print_r(count($excelFileArray));exit;
       /*   $order_no = '';
         $order_num = '';
         $order_w = '';
@@ -97,17 +97,17 @@ if(file_exists($excelFileUrl))
         $sender_post = $excelFileArray[$n]['O']['content'];
         $sender_adress = $excelFileArray[$n]['P']['content'];
         
-        $sql = "INSERT INTO `print_orders` (`order_no`,`order_num`,`order_w`,`order_detail`,`express_no`,`tracking`,`reciver`,`reciver_tel`,`reciver_post`,`reciver_province`,`reciver_city`,`reciver_street`,`sender`,`sender_tel`,`sender_post`,`sender_adress`) 
-            VALUES ('$order_no','$order_num','$order_w','$order_detail','$express_no','$tracking',
+        $sql = "INSERT INTO `orders` (`order_no`,`order_num`,`order_w`,`order_detail`,`express_no`,`tracking`,`reciver`,`reciver_tel`,`reciver_post`,`reciver_province`,`reciver_city`,`reciver_street`,`sender`,`sender_tel`,`sender_post`,`sender_address`,`print_count`) 
+			VALUES ('$order_no','$order_num','$order_w','$order_detail','$express_no','$tracking',
                     '$reciver','$reciver_tel','$reciver_post','$reciver_province','$reciver_city',
-                    '$reciver_street','$sender','$sender_tel','$sender_post','$sender_adress');";
+                    '$reciver_street','$sender','$sender_tel','$sender_post','$sender_adress',0);";
         
         
         mysql_query($sql);
         
     }
-    exit;
-
+    
+	print_r($sql);exit;
     
     $sql = "INSERT INTO `print_orders` (`order_no`,`order_num`,`order_w`,`order_detail`,`express_no`,`tracking`,`reciver`,`reciver_tel`,`reciver_post`,`reciver_province`,`reciver_city`,`reciver_street`,`sender`,`sender_tel`,`sender_post`,`sender_adress`) VALUES ('123456','1','1','一个打印机','中港快递','123654','刘德华','15900000000','521000','广东省','潮州市','湘桥区11号','周润发','15800011111','566666','广东省深圳市福田区11号');";
     //print($sql);exit;
