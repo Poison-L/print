@@ -107,7 +107,7 @@ if(file_exists($excelFileUrl))
         
     }
     
-	print_r($sql);exit;
+	echo '导入成功';exit;
     
     $sql = "INSERT INTO `print_orders` (`order_no`,`order_num`,`order_w`,`order_detail`,`express_no`,`tracking`,`reciver`,`reciver_tel`,`reciver_post`,`reciver_province`,`reciver_city`,`reciver_street`,`sender`,`sender_tel`,`sender_post`,`sender_adress`) VALUES ('123456','1','1','一个打印机','中港快递','123654','刘德华','15900000000','521000','广东省','潮州市','湘桥区11号','周润发','15800011111','566666','广东省深圳市福田区11号');";
     //print($sql);exit;

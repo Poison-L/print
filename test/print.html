@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<script language="javascript" src="../Lodop6.198/LodopFuncs.js"></script>
+<object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="../Lodop6.198/install_lodop32.exe"></embed>
+</object> 
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+test
+
+<table>
+  <tr>  
+    <td width="100%" height="22"><font face="宋体">·现在测试一下：<a href="javascript:CheckIsInstall()">查看本机是否安装控件</a></font></td>  
+  </tr>  
+</table>
+
+
+
+
+<h2><font color="#009999">演示如何打印当前页面的内容：</font></h2>
+<form id="form1">
+  <table border="1" width="300" id="tb01" bgcolor="#CCFFCC" style="border:solid 1px black;border-collapse:collapse"><tr><td width="133" id="mtb001">
+  <font face="黑体" color="#FF0000" size="3"><u>&nbsp;《表单一》&nbsp;</u></font></td></tr></table>
+  <table border="1" width="300" height="106" cellspacing="0" bgcolor="#CCFFFF"style="border-collapse:collapse;table-layout:fixed;border:solid 1px black;"><tr>
+  <td width="66" height="16" style="border:solid 1px black"><font color="#0000FF">A</font><font color="#0000FF">等</font></td>
+<td width="51" height="16" style="border:solid 1px black"><font color="#0000FF">B</font><font color="#0000FF">等</font></td>
+<td width="51" height="16" style="border:solid 1px black"><font color="#0000FF">C</font><font color="#0000FF">等</font></td></tr> 
+<tr>
+<td width="66" height="16" style="border:solid 1px black">A<sub>01</sub></td>
+<td width="80" height="12" style="border:solid 1px black">中-001</td>
+<td width="51" height="12" style="border:solid 1px black">C1<sup>x</sup></td>
+</tr> 
+<tr>
+<td width="66" height="16" style="border:solid 1px black">A<sub>02</sub>Φ</td>
+<td width="80" height="16" style="border:solid 1px black">日-スの</td>
+<td width="51" height="16" style="border:solid 1px black"><font face='Vernada'>7&#13221</font></td>
+</tr> 
+  <tr><td width="66" height="16" style="border:solid 1px black;overflow:hidden">A<sub>03</sub><nobr>over隐藏后面的：1234567890</nobr>
+</td><td width="80" height="16" style="border:solid 1px black;overflow:hidden">韩-안녕</td><td width="51" height="16">C3<sup>x</sup>
+</td></tr> </table>
+</form>
+<br>
+
+
+
+<p>1：若只打印《表单一》,看一下<a href="javascript:prn1_preview()">打印预览</a>	<a href="javascript:prn1_print()">直接打印</a>
+
+
+
+
+
+
+<div id="form2">
+  <table border="1" width="100%" id="tb01" bgcolor="#CCFFCC" style="border:solid 1px black;border-collapse:collapse"><tr><td width="133" id="mtb001">
+  <font face="黑体" color="#FF0000" size="3">《表单二》&copy;</font></td></tr></table>
+  <table border="1" width="100%" height="106" cellspacing="0" bgcolor="#CCFFFF" style="border:solid 1px black;border-collapse:collapse"><tr>
+  <td width="66" height="16" style="border:solid 1px black"><font color="#0000FF">X</font><font color="#0000FF">等</font></td>
+<td width="51" height="16" style="border:solid 1px black"><font color="#0000FF">Y等</font></td>
+<td width="51" height="16" style="border:solid 1px black"><font color="#0000FF">Z等</font></td></tr> 
+  <tr><td width="66" height="12" style="border:solid 1px black"><span style="font-family:Wingdings;font-size:25px;" >&#254;</span>X001</td>
+<td width="51" height="12" style="border:solid 1px black"><strike>Y001</strike></td>
+<td width="51" height="44" rowspan="3"  style="border:solid 1px black">
+      <ol style="list-style-type:upper-alpha;list-style-position:inside;">
+        <li>Z001</li>
+        <li>Z002</li>
+        <li>Z003</li>
+        <li>Z004</li>
+        <li>Z005</li>
+       </ol>
+    </td></tr> 
+<tr><td width="30%" height="16" style="border:solid 1px black"><strong>X002</strong></td>
+<td width="51" height="16"  style="border:solid 1px black"><u>Y002</u><span style="visibility: hidden">hidesome</span></td></tr> 
+  <tr><td width="30%" height="16" style="border:solid 1px black"><span style="text-decoration: overline">X003</span>
+</td><td width="40%" height="16" style="border:solid 1px black"><em>Y003</em><input type="radio" name="R1"><input type="radio" name="R1" checked></td></tr> </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script language="javascript" type="text/javascript">    
+	function CheckIsInstall() {	 
+		try{ 
+		     var LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM')); 
+			if ((LODOP!=null)&&(typeof(LODOP.VERSION)!="undefined")) alert("本机已成功安装过Lodop控件!\n  版本号:"+LODOP.VERSION); 
+		 }catch(err){ 
+			//alert("Error:本机未安装或需要升级!"); 
+ 		 } 
+	}; 
+	
+    var LODOP; //声明为全局变量 
+    
+    //预览打印
+	function prn1_preview() {	
+		CreateOneFormPage();	
+		LODOP.PREVIEW();	
+	};
+	
+
+	function prn1_print() {		
+		CreateOneFormPage();
+		LODOP.PRINT();	
+	};
+	function prn1_printA() {		
+		CreateOneFormPage();
+		LODOP.PRINTA(); 	
+	};	
+	function CreateOneFormPage(){
+		LODOP=getLodop();  
+		LODOP.PRINT_INIT("有信达BBC");		//初始化运行环境，清理异常打印遗留的系统资源，设定打印任务名。
+		LODOP.SET_PRINT_STYLE("FontSize",18);		//设置打印项的输出风格，成功执行该函数，此后再增加的打印项按此风格输出。
+		LODOP.SET_PRINT_STYLE("Bold",1);
+		LODOP.ADD_PRINT_TEXT(2,2,100,100,"打印页面部分内容");		//ADD_PRINT_TEXT(Top,Left,Width,Height,strContent)	要求在打印初始化后调用，建议在画线类函数之后调用。
+		LODOP.ADD_PRINT_HTM(88,200,350,600,document.getElementById("form1").innerHTML);		//增加超文本打印项(普通模式)
+	};	                     
+	function prn2_preview() {	
+		CreateTwoFormPage();	
+		LODOP.PREVIEW();	
+	};
+	function prn2_manage() {	
+		CreateTwoFormPage();
+		LODOP.PRINT_SETUP();	
+	};	
+	function CreateTwoFormPage(){
+		LODOP=getLodop();  
+		LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单二");
+		LODOP.ADD_PRINT_RECT(70,27,634,242,0,1);			//增加矩形线ADD_PRINT_RECT(Top, Left, Width, Height,intLineStyle, intLineWidth)
+		LODOP.ADD_PRINT_TEXT(29,236,279,38,"页面内容改变布局打印");
+		LODOP.SET_PRINT_STYLEA(2,"FontSize",18);
+		LODOP.SET_PRINT_STYLEA(2,"Bold",1);
+		LODOP.ADD_PRINT_HTM(88,40,321,185,document.getElementById("form1").innerHTML);
+		LODOP.ADD_PRINT_HTM(87,355,285,187,document.getElementById("form2").innerHTML);
+		LODOP.ADD_PRINT_TEXT(319,58,500,30,"注：其中《表单一》按显示大小，《表单二》在程序控制宽度(285px)内自适应调整");
+	};              
+	function prn3_preview(){
+		LODOP=getLodop();  
+		LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_全页");
+		LODOP.ADD_PRINT_HTM(0,0,"100%","100%",document.documentElement.innerHTML);
+		LODOP.PREVIEW();	
+	};	
+</script> 
+</body>
+</html>
