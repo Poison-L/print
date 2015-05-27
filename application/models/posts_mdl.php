@@ -11,6 +11,8 @@ class Posts_mdl extends CI_Model{
 	const TBL_RELATIONSHIPS = 'relationships';
 	const TBL_COMMENTS = 'comments';
 	
+	const TBL_ORDERS = 'orders';
+	
 	//内容类型 日志/附件/独立页面
 	private $_post_type = array('post','attachment','page');
 	
@@ -46,6 +48,36 @@ class Posts_mdl extends CI_Model{
 		//返回处理好的slug
 		return $result;
 	}
+	
+	
+	//获取订单信息
+	public function get_orders(){
+		$this->db->select('orders.*');
+		return $this->db->get(self::TBL_ORDERS);
+		
+	}
+	
+	//根据id获取订单号
+	public function get_order_by_id($identity,$value){
+		$this->db->select('orders.*');
+		$this->db->where($identity,$value);
+		
+		return $this->db->get(self::TBL_ORDERS)->row();
+		
+	}
+	
+	//更新打印次数
+	public function update_order_print($pid,$data){
+		$this->db->where('id',$pid);
+		$this->db->update(self::TBL_ORDERS,$data);
+	
+		return ($this->db->affected_rows() == 1)?TRUE:FALSE;
+	}
+	
+	
+
+	
+	
 	
 	//获取内容列表
 	/**
@@ -200,6 +232,8 @@ class Posts_mdl extends CI_Model{
 	
 		return $this->db->get();
 	}
+	
+
 	
 	/**
 	 * 根据作者ID获取文章

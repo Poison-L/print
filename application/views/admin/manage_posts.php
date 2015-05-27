@@ -53,6 +53,7 @@ $this->load->view('admin/menu');
 <div class="container">
 <div class="col-md-offset-2">
 <form role="form" method="post" name="manage_posts" action="<?php echo site_url('admin/posts/operate'); ?>">
+
 <table class="table table-striped table-bordered table-hover">
 	<thend>
 		<th>选中</th>
@@ -107,4 +108,6 @@ $this->load->view('admin/menu');
 </div>
 </div>
 
-<?php echo $this->load->view('admin/footer');?>
+<?php 
+
+echo $this->load->view('admin/footer');?>

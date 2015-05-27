@@ -48,6 +48,15 @@ class Posts extends ST_Controller{
 		
 	}
 	
+	//输出模板
+	public function hkexp($order_no){
+		$hkprint = $this->posts_mdl->get_order_by_id('order_no',$order_no);
+		$this->_data['hkprint'] = $hkprint;
+		//print_r($hkprint);
+		$this->load->view('hkexp',$this->_data);
+	}
+	
+	
 	/**
 	 * 内容格式化
 	 *

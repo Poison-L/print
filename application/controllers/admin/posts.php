@@ -381,6 +381,82 @@ class Posts extends ST_Auth_Controller{
 	}
 	
 	
+	//管理订单
+	public function orders(){
+		$orders = $this->posts_mdl->get_orders();
+		$this->_data['orders'] = $orders;
+		//print_r($orders);
+		
+		$this->load->view('admin/manage_orders',$this->_data);
+	}
+	
+	//打印测试
+	
+	public function printtest(){		
+		$print = array();	
+		$this->_data['print'] = $print;
+		$this->load->view('admin/printtest',$this->_data);
+	}
+	
+	//输出模板
+	public function hkexp(){
+		$hkprint = $this->posts_mdl->get_order_by_id('id',3);
+		$this->_data['hkprint'] = $hkprint;
+		print_r($hkprint);
+		$this->load->view('hkexp',$this->_data);
+	}
+	
+	//获得要打印的订单号
+	public function getprint(){
+		
+		$action = $this->input->post('do',TRUE);
+		$orders = $this->input->post('pid',TRUE);
+		
+		if ($orders && is_array($orders)){
+			
+			foreach($orders as $order){
+				
+				if(empty($order)){
+					continue;
+				}
+				$content[] = $this->posts_mdl->get_order_by_id('id',$order);
+				$temp = $this->posts_mdl->get_order_by_id('id',$order);
+				$temp = $this->objectToArray($temp);
+				$data = array('print_count' => $temp['print_count']+1);
+				$this->posts_mdl->update_order_print($order,$data);
+				
+			}
+			
+		}
+		
+		$content = $this->objectToArray($content);
+		
+		$cc = json_encode($content);
+		
+		//print_r($cc);
+		
+		$this->_data['cc'] = $cc;
+		$this->_data['print'] = $content;
+		$this->load->view('admin/printtest',$this->_data);
+	}
+	
+	/**
+	 * 对象转数组
+	 * @param $obj
+	 * @return mixed
+	 */
+	public function objectToArray($obj)
+	{
+		$_arr = is_object($obj) ? get_object_vars($obj) : $obj;
+		if (is_array($_arr)) {
+			foreach ($_arr as $key => $val) {
+				$val = (is_array($val) || is_object($val)) ? self::objectToArray($val) : $val;
+				$arr[$key] = $val;
+			}
+		}
+		return $arr;
+	}
+	
 	
 	
 	//管理文章

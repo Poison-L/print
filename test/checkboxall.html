@@ -1,0 +1,74 @@
+    <html xmlns="http://www.w3.org/1999/xhtml">  
+    <head>  
+    <title>网站会员激活码管理</title>  
+    <script language="javascript">  
+    function ReSel(){      
+        for(i=0;i<document.form1.logs.length;i++){  //这一用法只对form表单有效  
+            document.form1.logs[i].checked = true;  //如果是实现【全不选】的话，改成false即可  
+        }  
+    }  
+    function SeSel(){      
+        for(i=0;i<document.form1.logs.length;i++){  
+            if(document.form1.logs[i].checked) document.form1.logs[i].checked = false;  
+            else document.form1.logs[i].checked = true;  
+        }  
+    }  
+    function DelSel(){  
+         var nid = getCheckboxItem();  
+         if(nid==""){  
+              alert("请选择项目!\r\n");  
+              return ;  
+         }  
+         location.href = "member_activation.php?dopost=del&ids="+nid;  
+    }  
+    //获得选中文件的文件名  
+    function getCheckboxItem(){  
+         var allSel="";  
+         if(document.form1.logs.value) return document.form1.logs.value;  
+         for(i=0;i<document.form1.logs.length;i++)  
+         {  
+             if(document.form1.logs[i].checked){  
+                 if(allSel=="")  
+                     allSel=document.form1.logs[i].value;  
+                 else  
+                     allSel=allSel+"-"+document.form1.logs[i].value;  
+             }  
+         }  
+         //alert(allSel);   //1-2-7  
+         return allSel;   
+    }  
+    </script>  
+      
+    </head>  
+    <body background='images/allbg.gif' leftmargin='8' topmargin='8'>  
+      
+    <table width="98%" border="0" align="center" cellpadding="2" cellspacing="1" bgcolor="#cfcfcf">  
+        <tr>  
+          <td>激活码列表</td>  
+        </tr>  
+        <tr bgcolor="#FEFCEF" height="30" align="center">   
+          <td width="3%">选择</td>  
+          <td width="5%">id</td>  
+          <td width="30%">激活码</td>  
+        </tr>  
+        <form name="form1">  
+            {dede:datalist}   
+            <tr height="26" align="center" bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='#FCFDEE';"  
+                onMouseOut="javascript:this.bgColor='#FFFFFF';"><!--onMouseMove/onMouseOut:鼠标移动到该行后，被选中的行变色-->  
+              <td><input name='logs' type='checkbox' value='{dede:field.id/}' /></td>  
+              <td>{dede:field.id/}</td>  
+              <td>{dede:field.core/}</td>  
+            </tr>  
+            {/dede:datalist}  
+        </form>  
+        <tr bgcolor="#ffffff">   
+         <td height="36" colspan="9">  
+            <a class="coolbg" onClick="ReSel();" >全选</a>  
+            <a class="coolbg" onClick="SeSel();" >反选</a>  
+            <a class="coolbg" onClick="DelSel();">删除</a>  
+         </td>  
+        </tr>  
+    </table>  
+      
+    </body>  
+    </html>  

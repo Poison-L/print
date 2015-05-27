@@ -29,11 +29,83 @@ class Metas extends ST_Auth_Controller{
 		$this->_data['parentPage'] = 'manage-posts';
 		$this->_data['currentPage'] = 'manage-metas';
 		
+		$this->load->helper(array('form', 'url'));
+		
 	}
 	
 	public function index(){
-		redirect('admin/metas/manage');
+		
+		//echo FCPATH;E:\wamp\www\print\
+	/* 	$data = file_get_contents(FCPATH."/upload/ok.xlsx");
+		$name = "订单模板";
+		$this->_data['data'] = $data;
+		$this->_data['name'] = $name;
+		$this->auth->exceed('contributor'); */
+		
+		
+		$this->load->view('admin/upload',$this->_data);
+		
+		//redirect('admin/metas/manage');
 	}
+	
+	public function upload(){
+		
+		$config['upload_path'] =  base_url('upload/');
+		$config['allowed_types'] = 'gif|jpg|png|xls|xlsx';
+		$config['max_size'] = '100';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
+		//$config['encrypt_name'] = TRUE;
+		$this->load->library('upload', $config);
+		
+		$data = array('upload_data' => $this->upload->data());
+		//print_r($data);exit;
+		$this->load->view('admin/upload_success',$data);
+	}
+	
+	public function download(){
+		/* $data = file_get_contents(FCPATH."/upload/ok.xlsx");
+		$name = "订单模板";
+		force_download($name, $data); */
+		$this->auth->exceed('contributor');
+		$this->load->view('admin/download');
+	}
+	
+/* 	public function upload(){
+		
+		$this->load->view('admin/upload_form', array('error' => ' ' ));
+	}
+	
+	//订单上传处理
+	public function uploadexcel(){
+		$config['upload_path'] = "E:/wamp/www/print/upload/";
+		//print_r($config['upload_path']);exit;
+		$config['allowed_types'] = 'gif|jpg|png|xls|xlsx';
+		$config['max_size'] = '100';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
+		
+		//print_r($this->upload->data());
+		
+		$this->load->library('upload', $config);
+		
+		/* $data = array('upload_data' => $this->upload->data());
+		
+		$this->load->view('admin/upload_succcess', $data); 
+		
+		if ( ! $this->metas->uploadexcel())
+		{
+			$error = array('error' => $this->metas->display_errors());
+			 
+			$this->load->view('admin/upload_form', $error);
+		}
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+			 
+			$this->load->view('admin/upload_succcess', $data);
+		}
+	}  */
 	
 	//分类管理:功能包括:1.查询列出所有分类;2.添加分类;3.编辑分类
 	//因为查询,编辑,添加都是在同一个view里面,所以提交到同一个方法好操作?

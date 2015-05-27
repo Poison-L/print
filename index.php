@@ -168,6 +168,8 @@ if (defined('ENVIRONMENT'))
 
 	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
+	
+
 
 	// Path to the front controller (this file)
 	define('FCPATH', str_replace(SELF, '', __FILE__));
