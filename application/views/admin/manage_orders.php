@@ -8,11 +8,11 @@ $this->load->view('admin/menu');
 <form role="form" method="post" name="manage_posts" action="<?php echo site_url('admin/posts/getprint'); ?>">
 <table class="table table-striped table-bordered table-hover">
 <p class="operate">操作: 
-<input type="button" id="btn1" value="全选">  
-                        <span class="operate-button typecho-table-select-all">全选</span>, 
-                        <span class="operate-button typecho-table-select-none">不选</span>&nbsp;&nbsp;&nbsp;
+
+<input type='checkbox' id='chkAll' onclick="CheckAll(this.checked)">全选  | 反选<br>
+                      
                        
-                        <span rel="delete" lang="你确认要删除这些文章吗" class="operate-button operate-delete typecho-table-select-submit">删除</span>
+                      
                         
                     </p>
 	<thend>
@@ -73,6 +73,12 @@ $this->load->view('admin/menu');
 </div>
 
 <script type="text/javascript">
+function CheckAll(val) {
+    $("input[name='pid[]']").each(function() {
+        this.checked = val;
+    });
+}
+
 function reprint() {
     var print_type = $('#print_type').val();
     if(print_type=='peihuo'){

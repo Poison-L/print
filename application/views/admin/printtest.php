@@ -78,6 +78,7 @@ function Printc(){
 			LODOP.PRINT_INIT("");	
 			LODOP.SET_PRINT_PAGESIZE (1, 1000, 1800, '');
 			LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm", lodopDomain+"/index.php/myself/hkexp/"+order);
+			//LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm","http://print.ehaiwaigou.cn/index.php/myself/hkexp/"+order);
 			LODOP.ADD_PRINT_BARCODE("3.2cm","4.6cm",'180','40','128A',track);
 			LODOP.ADD_PRINT_BARCODE("9.4cm","4.6cm",'180','40','128A',track);
 			//AddPrintContent("10101010101010","郭德强");
