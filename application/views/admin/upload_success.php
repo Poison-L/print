@@ -6,16 +6,19 @@ $this->load->view('admin/header');
 2015年5月20日PHP
 */
 ?>
-
-<h3>Your file was successfully uploaded!</h3>
-
-<ul>
-<?php foreach ($data as $item => $value):?>
-<li><?php echo $item;?>: <?php echo $value;?></li>
-<?php endforeach; ?>
-</ul>
-
-<p><?php echo anchor('upload', 'Upload Another File!'); ?></p>
+<div class="col-md-12 col-md-offset-2 main">
+	<div class="row">
+		<div class="col-md-4">
+			<h3>订单文件上传成功</h3>
+			<ul>
+				<?php foreach ($upload_data as $item => $value):?>
+				<li><?php echo $item;?>: <?php echo $value;?></li>
+				<?php endforeach; ?>
+			</ul>
+			<p><?php echo anchor('upload', '确定上传'); ?></p>
+		</div>
+	</div>
+</div>
 
 <?php echo $this->load->view('admin/footer');
 

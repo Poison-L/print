@@ -37,17 +37,32 @@ class Metas extends ST_Auth_Controller{
 		$this->load->view('admin/upload',$this->_data);
 	}
 	
+
+	/**
+	 * 处理文件上传:
+	 * 获取用户名,判断用户名文件夹是否存在,如果存在,那么直接上传到这个文件夹
+	 * 如果不存在,那么新建用户名对应的文件夹,在上传
+	 * 上传的文件名字:用户名+time()
+	 * 
+	 */
 	public function do_upload(){
 		
+		$author_name = $this->user->name;		//用户名
 		$cc = str_replace("\\", "/", FCPATH);		//E:/wamp/www/print/
+		$dd = $cc.'order_upload/';
+		$ee = $dd.$author_name.'/';
+		if (is_dir("$ee")==false){
+			mkdir("$ee");
+		}
 		
-		$config['upload_path'] = $cc.'order_upload/';
-		//echo $config['upload_path'];exit; */
+		$config['upload_path'] = $ee;
+		//echo $config['upload_path'];exit; 
 		//$config['upload_path'] = 'E:/wamp/www/print/order_upload/';
 		$config['allowed_types'] = 'gif|jpg|png|xls|xlsx';
 		$config['max_size'] = '1000000';
 		$config['max_width']  = '0';
 		$config['max_height']  = '0';
+		$config['file_name'] = $author_name.time();
 		
 		$this->load->library('upload', $config);
 		//print_r($config);exit;
@@ -64,29 +79,9 @@ class Metas extends ST_Auth_Controller{
 		}
 	}
 	
-	public function upload(){
-		
-		set_time_limit(300);
-		ini_set('memory_limit','1024M');
-		$field = array(
-				'order' => $this->input->post('orderFile')
-		);
+	
+	
 
-		print_r($field);exit;
-		
-		$config['upload_path'] =  base_url('upload/');
-		$config['allowed_types'] = 'gif|jpg|png|xls|xlsx';
-		$config['max_size'] = '100';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
-		//$config['encrypt_name'] = TRUE;
-		$this->load->library('upload', $config);
-		
-		$data = array('upload_data' => $this->upload->data());
-		//print_r($data);
-		$buff = $this->load->view('admin/upload_success',$data,true);
-		//print_r($buff);
-	}
 	
 	public function download(){
 		/* $data = file_get_contents(FCPATH."/upload/ok.xlsx");
