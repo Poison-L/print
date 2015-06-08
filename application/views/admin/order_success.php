@@ -10,7 +10,12 @@ $this->load->view('admin/header');
 	<div class="row">
 		<div class="col-md-4">
 			<h3>订单文件上传成功</h3>
-			<p><?php echo anchor('admin/metas/getExcel', '确定上传'); ?></p>
+			<ul>
+				
+				<li>上传成功</li>
+				
+			</ul>
+			
 		</div>
 	</div>
 </div>

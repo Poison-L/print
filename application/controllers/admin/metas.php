@@ -24,6 +24,7 @@ class Metas extends ST_Auth_Controller{
 		$this->auth->exceed('editor');
 		
 		$this->load->model('metas_mdl');
+		$this->load->model('excel_mdl');
 		
 		$this->_data['page_title'] = '分类与标签';
 		$this->_data['parentPage'] = 'manage-posts';
@@ -62,7 +63,11 @@ class Metas extends ST_Auth_Controller{
 		$config['max_size'] = '1000000';
 		$config['max_width']  = '0';
 		$config['max_height']  = '0';
-		$config['file_name'] = $author_name.time();
+		$config['file_name'] = 'orders';
+		$ee = $dd.$author_name.'/order.xlsx';
+		if(file_exists($ee)){
+			@unlink($ee);
+		}
 		
 		$this->load->library('upload', $config);
 		//print_r($config);exit;
@@ -80,7 +85,103 @@ class Metas extends ST_Auth_Controller{
 	}
 	
 	
-	
+	/**
+	 * 读取excel数据,插入数据库
+	 */
+	public function getExcel(){
+		
+		$author_name = $this->user->name;		//用户名
+		$cc = str_replace("\\", "/", FCPATH);		//E:/wamp/www/print/
+		$dd = $cc.'order_upload/';
+		$ee = $dd.$author_name.'/';
+		
+		header('Content-Type:text/html;charset=utf-8');//设置php页面字符集
+		require_once $cc.'excel/PHPExcel/lib/PHPExcel.php';  //phpexcel主程序文件
+		require_once $cc.'excel/PHPExcel/lib/PHPExcel/Reader/Excel2007.php';  //07版excel配置文件
+		require_once $cc.'excel/PHPExcel/lib/PHPExcel/Reader/Excel5.php';
+		include_once $cc.'excel/PHPExcel/lib/PHPExcel/IOFactory.php';
+		
+		//创建新的PHPExcel对象
+		$objexcel=new PHPExcel();
+		$php_reader = new PHPExcel_Reader_Excel2007();
+		//$objexcel->setActiveSheetIndex(0)->setCellValue('A1', '中文');
+
+		$excelFileUrl = $dd.$author_name.'/orders.xlsx';//xlsx文件路径
+		echo '<pre>';
+		if(file_exists($excelFileUrl))
+		{
+			$php_reader->canRead($excelFileUrl);
+			$objexcel = $php_reader->load($excelFileUrl);
+			$current_sheet =$objexcel->getSheet(0);
+			$all_column =$current_sheet->getHighestColumn();//获取excel文件里的最大列标
+			$all_row =$current_sheet->getHighestRow();//获取excel文件里的最大行标
+			$excelFileArray=array();
+
+			//循环列标和行标
+			//将取得内容组成一个二维数组 格式： Array['列标']['行标']['value']=值
+			for($c = 'A'; $c <= $all_column; $c++)
+			{
+				for($r = 0; $r <= $all_row; $r++)
+				{
+					$SerialNum = $c.$r;//excel文件里的坐标。即列标与行数结合
+					$content = $current_sheet->getCell($SerialNum)->getValue();//获取excel文件里当前坐标下（文本框）的内容
+					//如果当前坐标内的值为object对象类型
+					if(is_object($content))
+					{
+						$content = $content->__toString();
+					}
+					$excelFileArray[$r][$c]['content'] = $content;
+				}
+			}
+			
+			for($n = 2;$n<count($excelFileArray);$n++){
+				
+				$order_data = array(
+					'customer'		=>	$author_name,
+					'order_no'		=>	$excelFileArray[$n]['A']['content'],
+					'order_num'		=>	$excelFileArray[$n]['B']['content'],
+					'order_w'		=>	$excelFileArray[$n]['C']['content'],
+					'order_detail'	=>	$excelFileArray[$n]['D']['content'],
+					'express_no'	=>	$excelFileArray[$n]['E']['content'],
+					'tracking'		=>	$excelFileArray[$n]['F']['content'],
+					'reciver'		=>	$excelFileArray[$n]['G']['content'],
+					'reciver_tel'	=>	$excelFileArray[$n]['H']['content'],
+					'reciver_post'	=>	$excelFileArray[$n]['I']['content'],
+					'reciver_province'=>$excelFileArray[$n]['J']['content'],
+					'reciver_city'	=>	$excelFileArray[$n]['K']['content'],
+					'reciver_street'=>	$excelFileArray[$n]['L']['content'],
+					'sender'		=>	$excelFileArray[$n]['M']['content'],
+					'sender_tel'	=>	$excelFileArray[$n]['N']['content'],
+					'sender_post'	=>	$excelFileArray[$n]['O']['content'],
+					'sender_address'	=>	$excelFileArray[$n]['P']['content']
+				);
+				//将订单一条写入数据库,如果插入成功,返回文章的pid,如果失败,返回FALSE
+				$insert_id['aa'] = $this->excel_mdl->add_orders($order_data);
+				
+				//$order_no = $excelFileArray[$n]['A']['content'];
+				//$order_num = $excelFileArray[$n]['B']['content'];
+				//$order_w = $excelFileArray[$n]['C']['content'];
+				//$order_detail = $excelFileArray[$n]['D']['content'];
+				//$express_no = $excelFileArray[$n]['E']['content'];
+				//$tracking = $excelFileArray[$n]['F']['content'];
+				//$reciver = $excelFileArray[$n]['G']['content'];
+				//$reciver_tel = $excelFileArray[$n]['H']['content'];
+				//$reciver_post = $excelFileArray[$n]['I']['content'];
+				//$reciver_province = $excelFileArray[$n]['J']['content'];
+				//$reciver_city = $excelFileArray[$n]['K']['content'];
+				//$reciver_street = $excelFileArray[$n]['L']['content'];
+				//$sender = $excelFileArray[$n]['M']['content'];
+				//$sender_tel = $excelFileArray[$n]['N']['content'];
+				//$sender_post = $excelFileArray[$n]['O']['content'];
+				//$sender_adress = $excelFileArray[$n]['P']['content'];
+				/* $sql = "INSERT INTO `orders` (`order_no`,`order_num`,`order_w`,`order_detail`,`express_no`,`tracking`,`reciver`,`reciver_tel`,`reciver_post`,`reciver_province`,`reciver_city`,`reciver_street`,`sender`,`sender_tel`,`sender_post`,`sender_address`,`print_count`)
+				VALUES ('$order_no','$order_num','$order_w','$order_detail','$express_no','$tracking',
+				'$reciver','$reciver_tel','$reciver_post','$reciver_province','$reciver_city',
+				'$reciver_street','$sender','$sender_tel','$sender_post','$sender_adress',0);"; */
+			}
+	}
+	$this->load->view('admin/order_success',$insert_id);
+}
 
 	
 	public function download(){
