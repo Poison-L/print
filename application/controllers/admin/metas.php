@@ -34,21 +34,45 @@ class Metas extends ST_Auth_Controller{
 	}
 	
 	public function index(){
-		
-		//echo FCPATH;E:\wamp\www\print\
-	/* 	$data = file_get_contents(FCPATH."/upload/ok.xlsx");
-		$name = "订单模板";
-		$this->_data['data'] = $data;
-		$this->_data['name'] = $name;
-		$this->auth->exceed('contributor'); */
-		
-		
 		$this->load->view('admin/upload',$this->_data);
+	}
+	
+	public function do_upload(){
 		
-		//redirect('admin/metas/manage');
+		$cc = str_replace("\\", "/", FCPATH);		//E:/wamp/www/print/
+		
+		$config['upload_path'] = $cc.'order_upload/';
+		//echo $config['upload_path'];exit; */
+		//$config['upload_path'] = 'E:/wamp/www/print/order_upload/';
+		$config['allowed_types'] = 'gif|jpg|png|xls|xlsx';
+		$config['max_size'] = '1000000';
+		$config['max_width']  = '0';
+		$config['max_height']  = '0';
+		
+		$this->load->library('upload', $config);
+		//print_r($config);exit;
+		if ( ! $this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
+			 
+			$this->load->view('upload_form', $error);
+		}
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+			$this->load->view('admin/upload_success', $data);
+		}
 	}
 	
 	public function upload(){
+		
+		set_time_limit(300);
+		ini_set('memory_limit','1024M');
+		$field = array(
+				'order' => $this->input->post('orderFile')
+		);
+
+		print_r($field);exit;
 		
 		$config['upload_path'] =  base_url('upload/');
 		$config['allowed_types'] = 'gif|jpg|png|xls|xlsx';
@@ -59,8 +83,9 @@ class Metas extends ST_Auth_Controller{
 		$this->load->library('upload', $config);
 		
 		$data = array('upload_data' => $this->upload->data());
-		//print_r($data);exit;
-		$this->load->view('admin/upload_success',$data);
+		//print_r($data);
+		$buff = $this->load->view('admin/upload_success',$data,true);
+		//print_r($buff);
 	}
 	
 	public function download(){

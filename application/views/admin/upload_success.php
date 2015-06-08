@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $this->load->view('admin/header');
-/* $this->load->view('admin/menu'); */
+ $this->load->view('admin/menu'); 
 /*
 2015年5月20日PHP
 */

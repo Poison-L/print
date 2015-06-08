@@ -8,8 +8,10 @@ class Posts extends ST_Controller{
 	
 	public function __construct(){
 		parent::__construct();
+		$this->load->helper(array('form', 'url'));
 	}
 	
+
 	function index($slug = ''){
 		
 		//如果参数为空,那么跳转到首页
