@@ -9,11 +9,16 @@ $this->load->view('admin/menu');
 <table class="table table-striped table-bordered table-hover">
 <p class="operate">操作: 
 
-<input type='checkbox' id='chkAll' onclick="CheckAll(this.checked)">全选  | 反选<br>
+<input type='checkbox' id='chkAll' onclick="CheckAll(this.checked)">全选  | 反选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;筛选:
                       
-                       
+ <?php echo anchor(site_url('admin/posts/orders/1'),'未打印',array('title'=>'未打印'));?>&nbsp;|&nbsp;     
+ <?php echo anchor(site_url('admin/posts/orders/2'),'已打印',array('title'=>'已打印'));?>&nbsp;|&nbsp;  
+  <?php echo anchor(site_url('admin/posts/orders/3'),'所有订单',array('title'=>'所有订单'));?>
                       
-                        
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单清除:      
+ <?php echo anchor(site_url('admin/posts/delete_orders/1'),'清除未打印',array('title'=>'清除未打印'));?>&nbsp;|&nbsp;     
+ <?php echo anchor(site_url('admin/posts/delete_orders/2'),'清除已打印',array('title'=>'清除已打印'));?>&nbsp;|&nbsp;  
+  <?php echo anchor(site_url('admin/posts/delete_orders/3'),'清除所有订单',array('title'=>'清除所有订单'));?>                 
                     </p>
 	<thend>
 		<th>选中</th>

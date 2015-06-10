@@ -404,12 +404,31 @@ class Posts extends ST_Auth_Controller{
 	
 	
 	//管理订单
-	public function orders(){
-		$orders = $this->posts_mdl->get_orders();
+	public function orders($type=3){
+		
+		//$type是打印类型:1是未打印,2是已打印,3是所有订单
+		//print_r($type);exit;
+		
+		$author_name = $this->user->name;		//用户名
+		$orders = $this->posts_mdl->get_orders($author_name,$type);
 		$this->_data['orders'] = $orders;
 		//print_r($orders);
 		
 		$this->load->view('admin/manage_orders',$this->_data);
+	}
+	
+	//删除订单
+	public function delete_orders($type=3){
+		
+		//$type是打印类型:1是未打印,2是已打印,3是所有订单
+		
+		$author_name = $this->user->name;		//用户名
+		$del_orders = $this->posts_mdl->delete_orders($author_name,$type);
+		if($del_orders){
+			$this->session->set_flashdata('success', '订单删除成功');
+		}
+		redirect('admin/posts/orders');
+		
 	}
 	
 	//打印测试

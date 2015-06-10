@@ -51,9 +51,34 @@ class Posts_mdl extends CI_Model{
 	
 	
 	//获取订单信息
-	public function get_orders(){
+	public function get_orders($author_name,$type){
 		$this->db->select('orders.*');
+		$this->db->where('customer',$author_name);
+		
+		if($type == 1){
+			$this->db->where('print_count =',0);
+		}elseif($type == 2){
+			$this->db->where('print_count !=',0);
+		}
+		
 		return $this->db->get(self::TBL_ORDERS);
+		
+	}
+	
+	//删除订单
+	public function delete_orders($author_name,$type){
+		
+		$this->db->delete(self::TBL_METAS,array('mid' => intval($mid)));
+		
+		$this->db->where('customer',$author_name);
+		if($type == 1){
+			$this->db->where('print_count =',0);
+		}elseif($type == 2){
+			$this->db->where('print_count !=',0);
+		}
+		$this->db->delete(self::TBL_ORDERS);
+		
+		return ($this->db->affected_rows == 1)?TRUE:FALSE;
 		
 	}
 	
