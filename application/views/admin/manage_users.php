@@ -29,7 +29,7 @@ $this->load->view('admin/menu');
 							echo '编辑';
 							break;
 						case 'contributor':
-							echo '作者';
+							echo '用户';
 							break;			
 					}		
 					?></td>

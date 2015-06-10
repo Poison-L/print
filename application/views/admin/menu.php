@@ -11,7 +11,14 @@
           <ul class="nav nav-sidebar">
           	
           	<li><?php echo anchor(site_url('admin/profile/'),'个人信息设置',array('title'=>'个人信息设置'));?></li>
-
+          	<?php $author_name = $this->user->group;	
+          	if($author_name == 'administrator'){
+          		echo '<li>';
+          		echo anchor(site_url('admin/users/manage/'),'用户管理',array('title'=>'用户管理'));
+          		echo '</li>';
+          	}		
+          	?>
+			
            
           </ul>
           <ul class="nav nav-sidebar">
