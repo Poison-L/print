@@ -55,6 +55,10 @@ class Metas extends ST_Auth_Controller{
 		if (is_dir("$ee")==false){
 			mkdir("$ee");
 		}
+		$ff = $dd.$author_name.'/orders.xlsx';
+		if(file_exists($ff)){
+			@unlink($ff);
+		}
 		
 		$config['upload_path'] = $ee;
 		//echo $config['upload_path'];exit; 
@@ -64,10 +68,7 @@ class Metas extends ST_Auth_Controller{
 		$config['max_width']  = '0';
 		$config['max_height']  = '0';
 		$config['file_name'] = 'orders';
-		$ee = $dd.$author_name.'/order.xlsx';
-		if(file_exists($ee)){
-			@unlink($ee);
-		}
+
 		
 		$this->load->library('upload', $config);
 		//print_r($config);exit;

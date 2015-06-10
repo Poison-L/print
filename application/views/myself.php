@@ -61,7 +61,7 @@
 		
         <tr>
 			<td colspan="6" style="border-style:dotted;height:14mm">
-				<div >广州空港国际物流有限公司<br><br>&nbsp;</div>	
+				<div >广州市有信达国际货运代理有限公司<br><br>&nbsp;</div>	
 			</td>
 		</tr>
 		
@@ -110,7 +110,7 @@
 	
         <tr>
 	        <td colspan="6" style="height:14mm;border-style:dotted" border="0">
-	        	<div>广州空港国际物流有限公司&nbsp;</div>	
+	        	<div>广州市有信达国际货运代理有限公司&nbsp;</div>	
 	        </td>
         </tr>	
 

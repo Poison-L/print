@@ -18,7 +18,7 @@ $php_reader = new PHPExcel_Reader_Excel2007();
   
 //$objexcel->setActiveSheetIndex(0)->setCellValue('A1', '中文');  
   
-$excelFileUrl = 'print/ok.xlsx';//xlsx文件路径  
+$excelFileUrl = 'print/fengsheng.xlsx';//xlsx文件路径  
 //$xlsFileUrl = '01simple.xls';//97-03版excel文件路径  
   
 echo '<pre>';  
@@ -57,9 +57,10 @@ if(file_exists($excelFileUrl))
     }  
     //var_dump($excelFileArray);exit;
     
-    @$conn= mysql_connect('localhost','root','ccmiu') or die("连接错");
+    @$conn= mysql_connect('58.96.185.225','bbchk','123456') or die("连接错");
+    //@$conn= mysql_connect('127.0.0.1','root','ccmiu') or die("连接错");
     mysql_query("set names utf8");//设置编码输出
-    mysql_select_db('print'); //选择数据库
+    mysql_select_db('hkprint'); //选择数据库
     
    // print_r(count($excelFileArray));exit;
       /*   $order_no = '';
@@ -147,15 +148,4 @@ if(@$_POST['Submit'])
 
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
-<head></head>
-<body>
-<form id="form1" name="form1" method="post" action="">  
-  <label>  
-  <input name="file" type="file" id="file13"/>  
-  <input type="submit" name="Submit" value="提交" />  
-  </label>  
-</form> 
-</body>
-</html>
+
