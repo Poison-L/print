@@ -51,9 +51,22 @@ class Posts_mdl extends CI_Model{
 	
 	
 	//获取订单信息
-	public function get_orders($author_name,$type){
+	public function get_orders($author_name,$type,$limit,$offset){
 		$this->db->select('orders.*');
 		$this->db->where('customer',$author_name);
+		
+		//limit
+		if($limit && is_numeric($limit))
+		{
+			$this->db->limit(intval($limit));
+		}
+		
+		//offset
+		if($offset && is_numeric($offset))
+		{
+			$this->db->offset(intval($offset));
+		}
+		
 		//对查询结果排序
 		$this->db->order_by('orders.pid');
 		

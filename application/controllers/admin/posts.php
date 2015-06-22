@@ -18,6 +18,7 @@ class Posts extends ST_Auth_Controller{
 		
 		$this->load->model('metas_mdl');
 		$this->load->model('posts_mdl');
+		$this->load->model('users_mdl');
 		$this->load->helper(array('form', 'url'));
 	}
 	
@@ -414,6 +415,53 @@ class Posts extends ST_Auth_Controller{
 		$this->_data['orders'] = $orders;
 		//print_r($orders);
 		
+		/** pagination stff */
+		$page = $this->input->get('p',TRUE);
+		$page = (!empty($page) && is_numeric($page)) ? intval($page) : 1;
+		
+		$author_data = $this->users_mdl->get_oneuser($author_name);
+		$this->_data['limit_page'] = $author_data['limit_page'];
+
+		$limit = $author_data['limit_page'];
+		$offset = ($page - 1) * $limit;
+		
+		if($offset < 0)
+		{
+			redirect('admin/posts/orders');
+		}
+		
+		$orders = $this->posts_mdl->get_orders($author_name,$type,$limit, $offset);
+		$orders_count = $this->posts_mdl->get_orders($author_name,$type,10000, 0)->num_rows();
+		
+		if($orders)
+		{
+			
+				
+			$pagination = '';
+				
+			if($orders_count > $limit)
+			{
+				$this->dpagination->currentPage($page);
+				$this->dpagination->items($orders_count);
+				$this->dpagination->limit($limit);
+				$this->dpagination->adjacents(5);
+				$this->dpagination->target(site_url('admin/posts/orders/'.$type.'?'.implode('&',$query)));
+				$this->dpagination->parameterName('p');
+				$this->dpagination->nextLabel('下一页');
+				$this->dpagination->PrevLabel('上一页');
+		
+				$pagination = $this->dpagination->getOutput();
+			}
+				
+			$this->_data['pagination'] = $pagination;
+		}
+		
+		
+		
+		$this->_data['orders'] = $orders;
+
+		//$this->load->view('admin/manage_posts',$this->_data);
+		
 		$this->load->view('admin/manage_orders',$this->_data);
 	}
 	
@@ -479,6 +527,20 @@ class Posts extends ST_Auth_Controller{
 		$this->_data['cc'] = $cc;
 		$this->_data['print'] = $content;
 		$this->load->view('admin/printtest',$this->_data);
+	}
+	
+	public function set_page(){
+		$author_name = $this->user->name;		//用户名
+		$page_size = array(
+			'limit_page' => $this->input->post('page_size',TRUE)
+		);
+		
+		$del_orders = $this->users_mdl->update_limit_page($author_name,$page_size);
+		redirect('admin/posts/orders');
+		
+		
+		
+		
 	}
 	
 	/**

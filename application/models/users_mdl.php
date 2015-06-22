@@ -46,6 +46,7 @@ class Users_mdl extends CI_Model{
 	
 	//对validate_user方法拆分:get_by_username判断用户是否存在		check_password:判断密码是否错误
 	public function get_by_username($username){
+		
 		$this->db->where('name',$username);
 		$query = $this->db->get(self::TBL_USERS);
 		
@@ -53,6 +54,33 @@ class Users_mdl extends CI_Model{
 			return $query->row_array();
 		}
 		return false;
+	}
+	
+	/**
+	 * 根据用户名得到用户信息
+	 * @param unknown $username
+	 */
+	public function get_oneuser($username){
+		$this->db->select('users.*');
+		$this->db->where('name',$username);
+		$query = $this->db->get(self::TBL_USERS);
+		if($query->num_rows() == 1){
+			return $query->row_array();;
+		}
+		return false;
+		
+	}
+	
+	/**
+	 * 根据用户名设置用户订单显示数量
+	 * @param unknown $username
+	 * @param unknown $limit_page
+	 */
+	public function update_limit_page($username,$limit_page){
+		$this->db->where('name',$username);
+		$this->db->update(self::TBL_USERS,$limit_page);
+		
+		return ($this->db->affected_rows()>0)?TRUE:FALSE;
 	}
 	
 	public function check_password($password,$hashed_password){

@@ -28,3 +28,6 @@ CREATE TABLE `orders` (
   `pid` int(11) unsigned DEFAULT '0' COMMENT '订单编号',
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2029 DEFAULT CHARSET=utf8 COMMENT='订单表';
+
+--user表添加字段,用来保存用户订单每页显示的个数
+alter table users add `limit_page` int(60) default '100' comment '用户订单显示个数';

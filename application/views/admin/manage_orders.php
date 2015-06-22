@@ -67,9 +67,18 @@ $this->load->view('admin/menu');
 <div class="form-group">
 		    <div class="col-md-4">
 		     <input type="hidden" name="do" value="delete" />
-		      <button type="submit" class="btn btn-default">打印勾选项</button>
+		      <button type="submit" class="btn btn-default">打印勾选项</button>&nbsp;&nbsp;&nbsp;&nbsp;
+		      每页显示订单数:<?php echo $limit_page ?>
+		       
 		    </div>
 	  	</div>	
+</form>
+<form role="form" method="post" name="manage_posts" action="<?php echo site_url('admin/posts/set_page'); ?>">
+
+		      &nbsp;&nbsp;&nbsp;&nbsp;
+		      &nbsp;&nbsp;&nbsp;&nbsp;
+		      输入设置每页显示订单数: <input type="text" name="page_size" value="<?php echo $limit_page ?>" />
+		      <button type="submit" class="btn btn-default">确定设置</button>
 </form>
 </div>
 </div>
