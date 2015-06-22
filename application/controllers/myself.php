@@ -28,7 +28,12 @@ class Myself extends ST_Controller {
 	public function hkexp($order_no){
 		$hkprint = $this->posts_mdl->get_order_by_id('order_no',$order_no);
 		
+		
 		$hkprint = $this->objectToArray($hkprint);
+		$data = array('print_count' => $hkprint['print_count']+1);
+		$this->posts_mdl->update_order_print($hkprint['Id'],$data);
+		
+		
 		$this->_data['hkprint'] = $hkprint;
 		
 		$this->load->view("myself",$this->_data);

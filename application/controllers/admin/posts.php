@@ -509,10 +509,10 @@ class Posts extends ST_Auth_Controller{
 					continue;
 				}
 				$content[] = $this->posts_mdl->get_order_by_id('id',$order);
-				$temp = $this->posts_mdl->get_order_by_id('id',$order);
-				$temp = $this->objectToArray($temp);
-				$data = array('print_count' => $temp['print_count']+1);
-				$this->posts_mdl->update_order_print($order,$data);
+				//$temp = $this->posts_mdl->get_order_by_id('id',$order);
+				//$temp = $this->objectToArray($temp);
+				//$data = array('print_count' => $temp['print_count']+1);
+				//$this->posts_mdl->update_order_print($order,$data);
 				
 			}
 			
