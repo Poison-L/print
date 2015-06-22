@@ -1,8 +1,12 @@
-#新建数据库
+﻿#新建数据库
 create database print;
+
+
+
 
 CREATE TABLE `orders` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
+  
   `customer` varchar(255) DEFAULT '' COMMENT '用户名',
   `order_no` varchar(255) DEFAULT '' COMMENT '订单号',
   `order_num` varchar(255) DEFAULT '' COMMENT '订单数量',
@@ -21,5 +25,6 @@ CREATE TABLE `orders` (
   `sender_post` varchar(255) DEFAULT '' COMMENT '发件人邮编',
   `sender_address` varchar(255) DEFAULT '' COMMENT '发件人地址',
   `print_count` int(11) DEFAULT '0' COMMENT '打印次数',
+  `pid` int(11) unsigned DEFAULT '0' COMMENT '订单编号',
   PRIMARY KEY (`Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='订单表s';
+) ENGINE=MyISAM AUTO_INCREMENT=2029 DEFAULT CHARSET=utf8 COMMENT='订单表';

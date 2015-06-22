@@ -56,7 +56,7 @@ $this->load->view('admin/menu');
   <div class="col-md-3">
   <select name="group" id="group" class="form-control">
 		<option value="contributor"<?php echo set_select('group', 'contributor', ('contributor' != $group)?FALSE:TRUE); ?>>
-		贡献者</option>
+		用户</option>
 		<option value="editor"<?php echo set_select('group', 'editor', ('editor' != $group)?FALSE:TRUE); ?>>
 		编辑</option>
 		<option value="administrator"<?php echo set_select('group', 'administrator', ('administrator' != $group)?FALSE:TRUE); ?>>

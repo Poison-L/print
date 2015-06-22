@@ -54,6 +54,8 @@ class Posts_mdl extends CI_Model{
 	public function get_orders($author_name,$type){
 		$this->db->select('orders.*');
 		$this->db->where('customer',$author_name);
+		//对查询结果排序
+		$this->db->order_by('orders.pid');
 		
 		if($type == 1){
 			$this->db->where('print_count =',0);

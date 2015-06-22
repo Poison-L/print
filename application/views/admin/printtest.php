@@ -32,7 +32,11 @@ $this->load->view('admin/header');
 ?>
 
 
-<p>订单号:<input type="text" size="15" value="<?php echo @$print[$i][order_no]; ?>" id="<?php echo $i; ?>" > 快递单号:<input type="text" size="15" value="<?php echo @$print[$i][tracking]; ?>" id="<?php echo "t".$i; ?>" > </p>
+<p>
+订单号:<input type="text" size="15" value="<?php echo @$print[$i][order_no]; ?>" id="<?php echo $i; ?>" > 
+快递单号:<input type="text" size="15" value="<?php echo @$print[$i][tracking]; ?>" id="<?php echo "t".$i; ?>" > 
+excel编号:<input type="text" size="15" value="<?php echo @$print[$i][pid]; ?>" > 
+</p>
 			<td ><?php @$print[$i][Id]; ?></td>
 			
 				
@@ -44,7 +48,9 @@ $this->load->view('admin/header');
 				
 				
 				
-				<p><a href="javascript:Printc()">点击打印快递单</a></p> 
+				<p><a href="javascript:Printc()">点击打印快递单</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<?php echo anchor(site_url('admin/posts/orders'),'返回订单列表',array('title'=>'返回订单列表'));?></p> 
+				
 			
 
 

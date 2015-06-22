@@ -9,15 +9,18 @@ $this->load->view('admin/header');
 <div class="col-md-12 col-md-offset-2 main">
 	<div class="row">
 		<div class="col-md-4">
-			<h3>订单文件上传成功</h3>
-			<p><?php echo anchor('admin/metas/getExcel', '确定上传'); ?></p>
+			<h3>订单Excel文件已经上传</h3>
+			<p><?php echo anchor('admin/metas/getExcel', '确定上传数据'); ?></p>
 		</div>
 	</div>
 </div>
 
-<?php echo $this->load->view('admin/footer');
 
-/*
-End of file
-Location:upload_succcess.php
-*/
+
+
+
+
+
+<?php 
+
+echo $this->load->view('admin/footer');?>

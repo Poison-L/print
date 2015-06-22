@@ -5,7 +5,7 @@
 
 header("Content-type:text/html;charset=utf-8");
 //    $file_name="cookie.jpg";
-$file_name="ok.xlsx";
+$file_name="example.xlsx";
 //用以解决中文不能显示出来的问题
 $file_name=iconv("utf-8","gb2312",$file_name);
 $file_sub_path=$_SERVER['DOCUMENT_ROOT']."/upload/";

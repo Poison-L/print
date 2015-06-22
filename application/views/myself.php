@@ -87,10 +87,17 @@
         <tr>
 			<td colspan="6" style="border-style:dotted;height:10mm">
 				<div class="box">
-					<div class="box1" >收件人/代收人:</div>
+				
 					
-					<div class="box2" >签名时间:Received&nbsp;Date<br>
-					年Y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月M&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></td>
+					<div class="box1" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;收件人/代收人:
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					签名时间:Received&nbsp;Date<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					年Y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月M&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 				</div>
 			</td>
 		</tr>
@@ -144,6 +151,9 @@
 		<tr>
 			<td colspan="6" style="width:70mm;height:4mm;border-style:dotted" border="0">
 				数量(Amount): <?php echo @$hkprint[order_num]; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重量:<?php echo @$hkprint[order_w]; ?>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				编号:<?php echo @$hkprint[pid]; ?>
 			</td>
 		</tr>
 		

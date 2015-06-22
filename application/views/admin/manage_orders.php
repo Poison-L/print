@@ -22,7 +22,8 @@ $this->load->view('admin/menu');
                     </p>
 	<thend>
 		<th>选中</th>
-		<th>序号</th>
+		
+		<th>excel序号</th>
 		<th>订单号</th>
 		<th>快递单号</th>
 		<th>收件人姓名</th>
@@ -41,7 +42,8 @@ $this->load->view('admin/menu');
 			<?php foreach($orders->result() as $order): ?>
 				<tr <?php echo ($order->Id % 2==0)?'':'class="even"' ?> id="<?php echo 'order-'.$order->Id; ?>">
 					<td><input type="checkbox" value="<?php echo $order->Id; ?>" name="pid[]" ></td>
-					<td><?php echo $order->Id ?></td>
+					
+					<td><?php echo $order->pid ?></td>
 					<td><?php echo $order->order_no ?></td>
 					<th><?php echo $order->tracking ?></th>
 					<th><?php echo $order->reciver ?></th>

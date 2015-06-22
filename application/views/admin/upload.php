@@ -15,7 +15,7 @@ $this->load->view('admin/menu');
     <table  cellspacing="0" cellpadding="0" class="tableborder">
     <tr>
      <th>请选择要上传的文件:</th>
-     <td><input type="file" name="userfile" size="20" /><font style="color:red;">仅支持.xlsx文件上传(不支持.xls)</font></td>
+     <td><input type="file" name="userfile" size="20" /><font style="color:red;">仅支持.xlsx文件上传(不支持.xls) | 文件名请不要包含中文</font></td>
     </tr>
     <tr>
        <th>样例文件下载:</th>
@@ -31,6 +31,9 @@ $this->load->view('admin/menu');
     </tr><!--formtable tableborder-->
     </table>
     </form>
+    
+    
+    
 
 		</div>
 	</div>

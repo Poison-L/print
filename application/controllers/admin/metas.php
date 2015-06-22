@@ -21,7 +21,7 @@ class Metas extends ST_Auth_Controller{
 		parent::__construct();
 		
 		//作者不能访问,至少需要编辑,或者管理员
-		$this->auth->exceed('editor');
+		$this->auth->exceed('contributor');
 		
 		$this->load->model('metas_mdl');
 		$this->load->model('excel_mdl');
@@ -34,6 +34,9 @@ class Metas extends ST_Auth_Controller{
 		
 	}
 	
+	/**
+	 * 加载文件上传界面
+	 */
 	public function index(){
 		$this->load->view('admin/upload',$this->_data);
 	}
@@ -49,13 +52,14 @@ class Metas extends ST_Auth_Controller{
 	public function do_upload(){
 		
 		$author_name = $this->user->name;		//用户名
-		$cc = str_replace("\\", "/", FCPATH);		//E:/wamp/www/print/
-		$dd = $cc.'order_upload/';
-		$ee = $dd.$author_name.'/';
+		$cc = str_replace("\\", "/", FCPATH);		//E:/wamp/www/print/     //这个是项目路径
+		$dd = $cc.'order_upload/';				
+		$ee = $dd.$author_name.'/';				//上传路径:项目路径/order_upload/用户名/
 		if (is_dir("$ee")==false){
 			mkdir("$ee");
 		}
-		$ff = $dd.$author_name.'/orders.xlsx';
+		//文件名:orders.xlsx,每个用户只会存在一个orders.xlsx,如果原先有存在那么删除原来的orders.xlsx
+		$ff = $dd.$author_name.'/orders.xlsx';		
 		if(file_exists($ff)){
 			@unlink($ff);
 		}
@@ -96,7 +100,11 @@ class Metas extends ST_Auth_Controller{
 		$dd = $cc.'order_upload/';
 		$ee = $dd.$author_name.'/';
 		
-		header('Content-Type:text/html;charset=utf-8');//设置php页面字符集
+		//header('Content-Type:text/html;charset=utf-8');//设置php页面字符集
+		
+		/**
+		 * 载入PHPExcel解析类
+		 */
 		require_once $cc.'excel/PHPExcel/lib/PHPExcel.php';  //phpexcel主程序文件
 		require_once $cc.'excel/PHPExcel/lib/PHPExcel/Reader/Excel2007.php';  //07版excel配置文件
 		require_once $cc.'excel/PHPExcel/lib/PHPExcel/Reader/Excel5.php';
@@ -126,6 +134,7 @@ class Metas extends ST_Auth_Controller{
 				{
 					$SerialNum = $c.$r;//excel文件里的坐标。即列标与行数结合
 					$content = $current_sheet->getCell($SerialNum)->getValue();//获取excel文件里当前坐标下（文本框）的内容
+					//print_r($content);print_r('cccc');exit;
 					//如果当前坐标内的值为object对象类型
 					if(is_object($content))
 					{
@@ -154,10 +163,16 @@ class Metas extends ST_Auth_Controller{
 					'sender'		=>	$excelFileArray[$n]['M']['content'],
 					'sender_tel'	=>	$excelFileArray[$n]['N']['content'],
 					'sender_post'	=>	$excelFileArray[$n]['O']['content'],
-					'sender_address'	=>	$excelFileArray[$n]['P']['content']
+					'sender_address'	=>	$excelFileArray[$n]['P']['content'],
+					'pid'			=>	$n,
 				);
 				//将订单一条写入数据库,如果插入成功,返回文章的pid,如果失败,返回FALSE
-				$insert_id['aa'] = $this->excel_mdl->add_orders($order_data);
+				if($excelFileArray[$n]['A']['content']){
+					$insert_id['aa'] = $this->excel_mdl->add_orders($order_data);
+				}
+				
+				$this->_data['insert_id'] = $insert_id['aa'];
+				
 				
 				//$order_no = $excelFileArray[$n]['A']['content'];
 				//$order_num = $excelFileArray[$n]['B']['content'];
@@ -181,7 +196,8 @@ class Metas extends ST_Auth_Controller{
 				'$reciver_street','$sender','$sender_tel','$sender_post','$sender_adress',0);"; */
 			}
 	}
-	$this->load->view('admin/order_success',$insert_id);
+	//redirect('index.php/admin/upload',$this->_data);
+	$this->load->view('admin/order_success',$this->_data);
 }
 
 	
