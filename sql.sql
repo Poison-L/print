@@ -31,3 +31,5 @@ CREATE TABLE `orders` (
 
 --user表添加字段,用来保存用户订单每页显示的个数
 alter table users add `limit_page` int(60) default '100' comment '用户订单显示个数';
+
+alter table orders add `tracking_internal` varchar(255) default '' comment '国内快递单号';

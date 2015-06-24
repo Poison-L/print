@@ -25,6 +25,10 @@ class Myself extends ST_Controller {
 		$this->load->view("myself",$this->pics);
 	}
 	
+	/**
+	 * 获取中港快递需要的信息
+	 * @param unknown $order_no
+	 */
 	public function hkexp($order_no){
 		$hkprint = $this->posts_mdl->get_order_by_id('order_no',$order_no);
 		
@@ -37,6 +41,24 @@ class Myself extends ST_Controller {
 		$this->_data['hkprint'] = $hkprint;
 		
 		$this->load->view("myself",$this->_data);
+	}
+	
+	/**
+	 * 获取邮政快递需要的信息
+	 * @param unknown $order_no
+	 */
+	public function cnexp($order_no){
+		$cnprint = $this->posts_mdl->get_order_by_id('order_no',$order_no);
+	
+	
+		$cnprint = $this->objectToArray($cnprint);
+		$data = array('print_count' => $cnprint['print_count']+1);
+		$this->posts_mdl->update_order_print($cnprint['Id'],$data);
+	
+	
+		$this->_data['cnprint'] = $cnprint;
+	
+		$this->load->view("myself2",$this->_data);
 	}
 	
 	/**

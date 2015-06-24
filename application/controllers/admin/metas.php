@@ -165,6 +165,7 @@ class Metas extends ST_Auth_Controller{
 					'sender_post'	=>	$excelFileArray[$n]['O']['content'],
 					'sender_address'	=>	$excelFileArray[$n]['P']['content'],
 					'pid'			=>	$n,
+					'tracking_internal'	=>	$excelFileArray[$n]['Q']['content'],
 				);
 				//将订单一条写入数据库,如果插入成功,返回文章的pid,如果失败,返回FALSE
 				if($excelFileArray[$n]['A']['content']){
