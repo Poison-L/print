@@ -33,3 +33,6 @@ CREATE TABLE `orders` (
 alter table users add `limit_page` int(60) default '100' comment '用户订单显示个数';
 
 alter table orders add `tracking_internal` varchar(255) default '' comment '国内快递单号';
+
+--在新建订单的时候,添加一个字段:print_number,用来存储一个订单打印的张数量
+alter table orders add `print_number` int(10) default '1' comment '订单打印张数';

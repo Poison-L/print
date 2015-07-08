@@ -36,6 +36,8 @@ $this->load->view('admin/header');
 订单号:<input type="text" size="15" value="<?php echo @$print[$i][order_no]; ?>" id="<?php echo $i; ?>" > 
 快递单号:<input type="text" size="15" value="<?php echo @$print[$i][tracking]; ?>" id="<?php echo "t".$i; ?>" > 
 excel编号:<input type="text" size="15" value="<?php echo @$print[$i][pid]; ?>" > 
+需要打印张数<input type="text" size="15" value="<?php echo @$print[$i][print_number]; ?>" id="<?php echo "print_number".$i; ?>">
+
 <input type="hidden" size="15" value="<?php echo @$print[$i][reciver_city]; ?>" id="<?php echo "city".$i; ?>"> 
 
 <input type="hidden" size="15" value="<?php echo @$print[$i][reciver_street]; ?>" id="<?php echo "reciver_street".$i; ?>">
@@ -48,6 +50,8 @@ excel编号:<input type="text" size="15" value="<?php echo @$print[$i][pid]; ?>"
 <input type="hidden" size="15" value="<?php echo @$print[$i][order_w]; ?>" id="<?php echo "order_w".$i; ?>">
 <input type="hidden" size="15" value="<?php echo @$print[$i][order_detail]; ?>" id="<?php echo "order_detail".$i; ?>">
 <input type="hidden" size="15" value="<?php echo @$print[$i][tracking_internal]; ?>" id="<?php echo "tracking_internal".$i; ?>">
+
+
 
 
 </p>
@@ -96,16 +100,50 @@ function Printc(){
 		for(var n=0;n<count;n++){
 			var order = document.getElementById(n).value;
 			var track = document.getElementById("t"+n).value;
-			//alert(order);
-			LODOP.SET_LICENSES("深圳保宏电子商务综合服务有限公司","AF6A8226CE1786FBF9FF8546C3E7184E","",""); // 再调用一次注册
-			LODOP.PRINT_INIT("");	
-			LODOP.SET_PRINT_PAGESIZE (1, 1000, 1800, '');
-			LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm", lodopDomain+"/index.php/myself/hkexp/"+order);
-			//LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm","http://print.ehaiwaigou.cn/index.php/myself/hkexp/"+order);
-			LODOP.ADD_PRINT_BARCODE("3.2cm","4.6cm",'180','40','128A',track);
-			LODOP.ADD_PRINT_BARCODE("9.4cm","4.6cm",'180','40','128A',track);
-			//AddPrintContent("10101010101010","郭德强");
-			LODOP.PRINT();	
+			var print_number = document.getElementById("print_number"+n).value;		//每个快递需要打印的次数
+
+			if(print_number>1){
+
+				for(var m=1;m<=print_number;m++){
+
+
+					//alert(order);
+					LODOP.SET_LICENSES("深圳保宏电子商务综合服务有限公司","AF6A8226CE1786FBF9FF8546C3E7184E","",""); // 再调用一次注册
+					LODOP.PRINT_INIT("");	
+					LODOP.SET_PRINT_PAGESIZE (1, 1000, 1800, '');
+					LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm", lodopDomain+"/index.php/myself/hkexp/"+order);
+					//LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm","http://print.ehaiwaigou.cn/index.php/myself/hkexp/"+order);
+					LODOP.ADD_PRINT_BARCODE("3.2cm","4.6cm",'180','40','128A',track);
+					LODOP.ADD_PRINT_BARCODE("9.4cm","4.6cm",'180','40','128A',track);
+
+
+					LODOP.SET_PRINT_STYLE("FontSize",20);		//设置打印项的输出风格，成功执行该函数，此后再增加的打印项按此风格输出。
+					LODOP.SET_PRINT_STYLE("Bold",1);
+
+					LODOP.ADD_PRINT_TEXT(42,260,1400,40,"快递单:");
+					LODOP.ADD_PRINT_TEXT(75,260,1400,40,m+" / "+print_number);
+					//LODOP.ADD_PRINT_TEXT(92,270,1400,40,"快递单:");
+					
+					//AddPrintContent("10101010101010","郭德强");
+					LODOP.PRINT();	
+					
+				}
+				
+			}else{
+				//alert(order);
+				LODOP.SET_LICENSES("深圳保宏电子商务综合服务有限公司","AF6A8226CE1786FBF9FF8546C3E7184E","",""); // 再调用一次注册
+				LODOP.PRINT_INIT("");	
+				LODOP.SET_PRINT_PAGESIZE (1, 1000, 1800, '');
+				LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm", lodopDomain+"/index.php/myself/hkexp/"+order);
+				//LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm","http://print.ehaiwaigou.cn/index.php/myself/hkexp/"+order);
+				LODOP.ADD_PRINT_BARCODE("3.2cm","4.6cm",'180','40','128A',track);
+				LODOP.ADD_PRINT_BARCODE("9.4cm","4.6cm",'180','40','128A',track);
+				//AddPrintContent("10101010101010","郭德强");
+				LODOP.PRINT();	
+			}
+			
+			
+
 		}
 };
 

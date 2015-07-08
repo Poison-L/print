@@ -70,7 +70,7 @@
 				&nbsp;&nbsp;收件人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo @$hkprint[reciver]; ?><br>
 				&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址:<?php echo @$hkprint[reciver_province].@$hkprint[reciver_city].@$hkprint[reciver_street]; ?><br>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话(Tel):<?php echo @$hkprint[reciver_tel]; ?>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮编(Postcode):<?php echo @$hkprint[reciver_post]; ?>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话(Tel):<?php echo @$hkprint[reciver_tel]; ?>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php if(@$hkprint[reciver_post]){ echo "邮编(Postcode):";echo @$hkprint[reciver_post]; } ?>
 			</td>
 		</tr>
 		
@@ -135,7 +135,7 @@
 				&nbsp;&nbsp;收件人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo @$hkprint[reciver]; ?><br>
 				&nbsp;&nbsp;To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地址:<?php echo @$hkprint[reciver_province].@$hkprint[reciver_city].@$hkprint[reciver_street]; ?><br>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话(Tel):<?php echo @$hkprint[reciver_tel]; ?>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮编(Postcode):<?php echo @$hkprint[reciver_post]; ?>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话(Tel):<?php echo @$hkprint[reciver_tel]; ?>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php if(@$hkprint[reciver_post]){ echo "邮编(Postcode):";echo @$hkprint[reciver_post]; } ?>
 			</td>
 		</tr>
 

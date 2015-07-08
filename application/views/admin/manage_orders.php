@@ -31,7 +31,8 @@ $this->load->view('admin/menu');
 		<th>收件人省份</th>
 		<th>收件人城市</th>
 		<th>收件人街道</th>
-		<th>打印次数</th>
+		<th>已打印次数</th>
+		<th>需要打印张数</th>
 		
 		
 	
@@ -52,6 +53,7 @@ $this->load->view('admin/menu');
 					<th><?php echo $order->reciver_city ?></th>
 					<th><?php echo $order->reciver_street ?></th>
 					<th><?php echo $order->print_count ?></th>
+					<th><?php echo $order->print_number ?></th>
 					
 					
 					
