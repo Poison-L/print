@@ -27,6 +27,10 @@
             <li><?php echo anchor(site_url('admin/posts/orders'),'批量打印订单',array('title'=>'批量打印订单'));?></li> 
                	
           </ul>
+          
+          <ul class="nav nav-sidebar">
+            <li><a target="_black" href="http://note.youdao.com/share/?id=fce5d5af474cbdce505173705ec44a67&type=note">使用说明</a></li>  	
+          </ul>
         </div>
  </div>
        

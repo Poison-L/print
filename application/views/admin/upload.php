@@ -15,18 +15,21 @@ $this->load->view('admin/menu');
     <table  cellspacing="0" cellpadding="0" class="tableborder">
     <tr>
      <th>请选择要上传的文件:</th>
-     <td><input type="file" name="userfile" size="20" /><font style="color:red;">仅支持.xlsx文件上传(不支持.xls) | 文件名请不要包含中文</font></td>
+     <td><input type="file" name="userfile" size="20" /><font style="color:red;">仅支持.xlsx文件上传(不支持.xls) | 文件名请不要包含中文</font> <input type="submit" value="点击上传" /></td>
     </tr>
-    <tr>
-       <th>样例文件下载:</th>
+    
+     <!-- <tr><th>样例文件下载:</th>
        <td>
           
-           <?php echo anchor('admin/metas/download',"点击下载订单模板"); ?>
+           <?php //echo anchor('admin/metas/download',"点击下载订单模板"); ?>
        </td>
-    </tr>
+     </tr>
+      -->  
+
     <tr>
+   
         <td colspan="2" style="padding-left:35%;">
-            <input type="submit" value="点击上传" />
+           
         </td>
     </tr><!--formtable tableborder-->
     </table>
