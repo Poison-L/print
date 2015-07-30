@@ -71,3 +71,8 @@ v1.2.1
 v1.2.2
 去掉下载模板
 添加使用说明
+
+v1.2.3
+打印地址写死:\print\application\views\admin\printtest.php
+LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm", lodopDomain+"/index.php/myself/cnexp/"+order);
+//LODOP.ADD_PRINT_URL("0","0",'10cm',"18cm","http://print.ehaiwaigou.cn/index.php/myself/cnexp/"+order);
