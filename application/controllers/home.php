@@ -38,33 +38,10 @@ class Home extends ST_Controller{
 	}
 	
 	//首页默认
-	public function index($page = 1){
+	public function index(){
 		
-		//分页参数
-		$this->_init_pagination($page);
 		
-		//得到文章内容
-		$this->_posts = $this->posts_mdl->get_posts('post','publish',NULL,$this->_limit,$this->_offset)->result();
-		
-		//得到文章数量
-		$this->_total_count = $this->posts_mdl->get_posts('post', 'publish', NULL, 10000, 0)->num_rows();
-		
-		//如果不为空
-		if(!empty($this->_posts))
-		{	//加工处理文章格式
-			$this->_prepare_posts();
-			//应用分页规则
-			$this->_apply_pagination(site_url('page').'/%');
-		}
-		
-		/** 页面初始化 */
-		$data['page_title'] = '首页';
-		$data['page_description'] = setting_item('blog_description');	//读取博客描述
-		$data['page_keywords'] = setting_item('blog_keywords');			//读取博客关键词
-		$data['posts'] = $this->_posts;									//得到文章
-		$data['parsed_feed'] = Common::render_feed_meta();		//输出头部feed meta信息
-		$data['pagination'] = $this->_pagination;
-		
+
 		/** 加载主题下的页面 */
 		$this->load->view('index', $data);
 		
@@ -166,31 +143,14 @@ class Home extends ST_Controller{
 		$keywords = strip_tags($this->input->get('s',TRUE));
 		$page = strip_tags($this->input->get('p',TRUE));
 		
-		$this->_init_pagination($page);
-		
-		$this->_posts = $this->posts_mdl
-		->get_posts('post', 'publish', NULL, $this->_limit, $this->_offset, 0, $keywords, TRUE)
-		->result();
-		
-		$this->_total_count = $this->posts_mdl
-		->get_posts('post', 'publish', NULL, 10000, 0, 0, $keywords, TRUE)
-		->num_rows();
-			
-		if(!empty($this->_posts))
-		{
-			$this->_prepare_posts();
-		
-			$this->_apply_pagination(site_url('search?s='. urlencode($keywords)), FALSE, 'p');
+		if($keywords){
+			print_r($keywords);exit;
 		}
 		
+		
+		
 		/** 页面初始化 */
-		$data['page_title'] = sprintf('搜索：%s', $keywords);
-		$data['page_description'] = setting_item('blog_description');
-		$data['page_keywords'] = setting_item('blog_keywords');
-		$data['posts'] = $this->_posts;
-		$data['parsed_feed'] = Common::render_feed_meta();
-		$data['current_view_hints'] = sprintf('关键字 %s 的搜索结果（第 %d 页 / 共 %d 篇）', $keywords, $this->_current_page, $this->_total_count);
-		$data['pagination'] = $this->_pagination;
+
 		
 		$this->load->view('index', $data);
 		
